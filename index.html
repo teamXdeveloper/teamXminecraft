@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>teamXminecraft</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'VT323', monospace;
+      background-color: #121212;
+      color: white;
+      overflow-x: hidden; /* Prevent horizontal scrolling */
+    }
+
+    #loading {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: url('https://wallpapercave.com/wp/wp2783374.png') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    #loading h1 {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px 30px;
+      border-radius: 10px;
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #ff9e00;
+      letter-spacing: 1px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    #loading .progress-bar-container {
+      width: 80%;
+      height: 15px;
+      background-color: #444;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    #loading .progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet, red);
+      background-size: 400%;
+      animation: progress 5s linear infinite;
+    }
+
+    @keyframes progress {
+      0% {
+        width: 0;
+        background-position: 0% 50%;
+      }
+      50% {
+        width: 100%;
+        background-position: 100% 50%;
+      }
+      100% {
+        width: 0;
+        background-position: 0% 50%;
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    #main {
+      display: none;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 48px;
+      color: #55ff55;
+      margin-bottom: 40px;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background-color: #1f1f1f;
+      border: 2px solid #3e3e3e;
+      padding: 20px;
+      border-radius: 12px;
+      width: 280px;
+      transition: transform 0.2s;
+      margin-bottom: 20px;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card h2 {
+      color: #ffaa00;
+      margin-bottom: 15px;
+    }
+
+    .card p {
+      font-size: 18px;
+    }
+
+    .copy-btn {
+      position: relative;
+      margin-top: 10px;
+      padding: 10px 15px;
+      background-color: #111;
+      color: white;
+      border: 2px solid #333;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      overflow: hidden;
+      z-index: 0;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .copy-btn::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      width: 100%;
+      background: linear-gradient(
+        90deg,
+        red,
+        orange,
+        yellow,
+        green,
+        cyan,
+        blue,
+        violet,
+        red
+      );
+      background-size: 300%;
+      transition: opacity 0.3s;
+      opacity: 0;
+      animation: rgbBorder 4s linear infinite;
+      z-index: -1;
+    }
+
+    .copy-btn:hover::after {
+      opacity: 1;
+    }
+
+    .copy-btn:hover {
+      border-color: #666;
+      color: #fff;
+    }
+
+    @keyframes rgbBorder {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .small-note {
+      font-size: 14px;
+      color: #aaa;
+      margin-top: 10px;
+    }
+
+    .empty {
+      color: #888;
+      font-style: italic;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+      #loading h1 {
+        font-size: 28px;
+        padding: 10px 20px;
+      }
+
+      #loading .progress-bar-container {
+        width: 90%;
+      }
+
+      .card-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 15px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      .copy-btn {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loading">
+    <h1>Please Waiting...</h1>
+    <div class="progress-bar-container">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div id="main">
+    <h1>Welcome to the teamXminecraft squad</h1>
+
+    <div class="card-container">
+
+      <!-- Java IP -->
+      <div class="card">
+        <h2>🌐 Java Edition</h2>
+        <p><strong id="java-ip">OGonly.aternos.me:23390</strong></p>
+        <button class="copy-btn" onclick="copyIP('java-ip')">📋 Copy Java IP</button>
+        <p class="small-note">Open Minecraft Java ➜ Multiplayer ➜ Add Server ➜ Paste IP</p>
+      </div>
+
+      <!-- Bedrock IP -->
+      <div class="card">
+        <h2>📱 Bedrock Edition</h2>
+        <p><strong id="bedrock-ip">OGonly.aternos.me</strong></p>
+        <p>Port: <strong id="bedrock-port">23390</strong></p>
+        <button class="copy-btn" onclick="copyIP('bedrock-ip')">📋 Copy Bedrock IP</button>
+        <button class="copy-btn" onclick="copyIP('bedrock-port')">📋 Copy Bedrock Port</button>
+        <p class="small-note">Use IP + Port in Minecraft Bedrock</p>
+      </div>
+
+      <!-- YouTube -->
+      <div class="card">
+        <h2>📺 YouTube</h2>
+        <p>Watch tutorials, events, and more!</p>
+        <a class="copy-btn" href="https://www.youtube.com/@NipunXx" target="_blank">Visit Channel</a>
+      </div>
+
+      <!-- Discord -->
+      <div class="card">
+        <h2>💬 Discord</h2>
+        <p>Join our community chat and events.</p>
+        <a class="copy-btn" href="https://discord.gg/T3j7sMgt" target="_blank">Join Discord</a>
+      </div>
+
+      <!-- Latest Updates -->
+      <div class="card">
+        <h2>📝 Latest Updates</h2>
+        <p class="empty">No latest updates yet.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Loading screen timeout
+    setTimeout(() => {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('main').style.display = 'block';
+    }, 5000); // 5 seconds for loading
+
+    // Copy function
+    function copyIP(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied to clipboard: " + text);
+      });
+    }
+  </script>
+
+</body>
+</html>
